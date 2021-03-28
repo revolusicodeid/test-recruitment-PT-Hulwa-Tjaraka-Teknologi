@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   app_toolbar_content: {
     width: '100%',
+    padding: '0px 30px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'

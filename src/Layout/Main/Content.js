@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
     width: '80%'
   },
   // necessary for content to be below app bar

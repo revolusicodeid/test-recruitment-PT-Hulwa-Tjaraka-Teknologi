@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
     width: '100%',
   },
   content_header: {

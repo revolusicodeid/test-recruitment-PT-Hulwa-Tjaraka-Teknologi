@@ -79,13 +79,10 @@ export default function SignIn() {
     postRequestLess(urlLogin,formData.data,addToken,setShowProgress);
   }
 
-  const addToken = (resData) => {
-    const {status,data,message} = resData;
+  const addToken = async (resData) => {
+    const {status,data,message} = await resData;
     if(status){
-        localStorage.setItem("token",`${data}`);
-        localStorage.setItem("isAuthenticated",true);
-        setToken(`${data}`);
-        setIsAuthenticated(true);
+        await storeToken(data);
         toast.success("Welcome");
         history.push("/home");
     }else{
@@ -93,6 +90,13 @@ export default function SignIn() {
         localStorage.clear();
     }
     
+  }
+
+  const storeToken = async (data) => {
+    localStorage.setItem("token",`${data}`);
+    localStorage.setItem("isAuthenticated",true);
+    setToken(`${data}`);
+    setIsAuthenticated(true);
   }
 
   return (
