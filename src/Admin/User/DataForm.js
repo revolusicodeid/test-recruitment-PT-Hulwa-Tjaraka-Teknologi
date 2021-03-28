@@ -72,10 +72,7 @@ const DataForm = (view) => {
     ];
 
     const handleInputOnChange = (e) => {
-      const val = e.target.value
-      setDataInput(prevState => ({
-          data: { ...prevState.data,  [e.target.name]: val }
-      }));
+        formatData(e,setDataInput);
       
     }
 

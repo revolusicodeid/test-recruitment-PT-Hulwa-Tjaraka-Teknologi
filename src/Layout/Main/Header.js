@@ -18,11 +18,20 @@ import { API_URL } from '../../Setting/env';
 import { ProgressContext } from "../../Service/Context/ProgressContext";
 import { AuthContext } from '../../Service/Context/AuthContext';
 import { useHistory } from 'react-router';
+import { Menu as MenuIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   app_bar: {
-    width: `calc(100% - ${APP_NAV_WIDTH}px)`,
-    marginLeft: APP_NAV_WIDTH,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${APP_NAV_WIDTH}px)`,
+      marginLeft: APP_NAV_WIDTH,
+    },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
   app_toolbar_content: {
     width: '100%',
@@ -35,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({drawerHandleToogle}) => {
     const { setShowProgress } = useContext(ProgressContext);
     const { token, logout } = useContext(AuthContext);
     const history = useHistory();
@@ -62,6 +71,15 @@ const Header = () => {
     return (
       <AppBar position="fixed" className={classes.app_bar}>
         <Toolbar className={classes.app_toolbar_content}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={drawerHandleToogle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
           <div>
             <Typography variant="h6" noWrap>
               Aplikasi Ekspedisi

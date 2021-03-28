@@ -6,7 +6,8 @@ import {
   ListItemIcon , 
   ListItemText,
   makeStyles,
-  Divider
+  Divider,
+  Hidden
 } from '@material-ui/core';
 import { Home as HomeIcon, Receipt, AssignmentInd, Build, RecentActors, Motorcycle, MenuBook, Payment, FindInPage } from '@material-ui/icons';
 import { APP_NAV_WIDTH } from '../../Setting/env';
@@ -16,20 +17,23 @@ const useStyles = makeStyles( (theme) => ({
   root: {
     color: 'white',
   },
-  drawer : {
-    width: APP_NAV_WIDTH,
-    flexShrink: 0,
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: APP_NAV_WIDTH,
+      flexShrink: 0,
+    },
   },
   drawer_paper: {
     width: APP_NAV_WIDTH,
-    background: theme.palette.warning.main
+    backgroundColor: theme.palette.warning.main,
+    color: 'white'
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   
 }));
 
-const Admin = () => {
+const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -93,17 +97,11 @@ const Admin = () => {
     },
   ];
 
-  return (
-    <Drawer 
-      className={classes.drawer} 
-      variant="permanent"
-      classes={{
-        paper: classes.drawer_paper,
-      }}
-      >
+  const drawer = (
+    <div>
       <div className={classes.toolbar} />
-      <div className={classes.root}>
-        <List>
+      <Divider />
+      <List>
           {main_menu.map((item, index) => (
             <ListItem button key={index} onClick={() => history.push(`${item.location}`)}>
               <ListItemIcon >{item.icon}</ListItemIcon>
@@ -147,8 +145,41 @@ const Admin = () => {
             </ListItem>
           ))}
         </List>
-      </div>
-    </Drawer>
+    </div>
+  );
+
+  return (
+    <nav className={classes.drawer} aria-label="mailbox folders">
+      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+      <Hidden smUp implementation="css">
+        <Drawer
+          container={drawerContainer}
+          variant="temporary"
+          anchor={drawerTheme.direction === 'rtl' ? 'right' : 'left'}
+          open={mobileOpen}
+          onClose={drawerHandleToogle}
+          classes={{
+            paper: classes.drawer_paper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawer_paper,
+          }}
+          variant="permanent"
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+    </nav>
   );
 }
 
