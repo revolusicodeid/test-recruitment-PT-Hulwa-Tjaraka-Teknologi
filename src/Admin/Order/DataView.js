@@ -199,7 +199,7 @@ const EnhancedTableToolbar = (props) => {
           rowsMax={4}
           aria-label="Search"
           placeholder="Multiple Search"
-          style={{minWidth:300}}
+          style={{maxWidth:300, width:'40%'}}
           onChange={onTextChange}
         />
       )}
@@ -248,9 +248,9 @@ const DataView = () => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [data_request, setDataRequest] = useState(null);
   const [emptyRows, setEmptyRows] = useState(5);
   const [totalRows, setTotalRows] = useState(0);
+  const [rowsOnPage, setRowsOnPage] = useState(0);
   const [rows, setRows] = useState([]);
   const [searchPath, setSearchPath] = useState("");
   const [url, setUrl] = useState(`${API_URL}/orders?page=${page}&rowsPerPage=${rowsPerPage}&search=${searchPath}`);
@@ -263,19 +263,20 @@ const DataView = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event,id) => {
+    const selectedIndex = selected.indexOf(id);
+    console.log(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -315,7 +316,7 @@ const DataView = () => {
     : setUrl(`${API_URL}/orders?page=${page}&rowsPerPage=${rowsPerPage}&search=${path}`);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
   
   useEffect(() => {
     const fetchData = async () => {
@@ -356,10 +357,10 @@ const DataView = () => {
       };
       
       await result.data.data.map(addData(createData));
-      setDataRequest(result);
       setTotalRows(parseInt(result.data.total,10));
       setRowsPerPage(parseInt(result.data.per_page,10));
-      setEmptyRows(parseInt(result.data.per_page,10) - result.data.data.length);
+      setEmptyRows(parseInt(result.data.per_page,10) - parseInt(result.data.data.length,10));
+      setRowsOnPage(parseInt(result.data.data.length,10));
       setPage(result.data.current_page - 1);
     };
     setShowProgress(true);
@@ -387,18 +388,19 @@ const DataView = () => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={data_request === null ? rows.length : data_request.data.total}
+              rowCount={rowsOnPage}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  
                   return (
                     
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
+                      onClick={(event) => handleClick(event,row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
