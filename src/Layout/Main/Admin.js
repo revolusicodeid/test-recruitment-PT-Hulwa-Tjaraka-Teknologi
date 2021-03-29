@@ -12,6 +12,7 @@ import {
 import { Home as HomeIcon, Receipt, AssignmentInd, Build, RecentActors, Motorcycle, MenuBook, Payment, FindInPage } from '@material-ui/icons';
 import { APP_NAV_WIDTH } from '../../Setting/env';
 import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles( (theme) => ({
   root: {
@@ -53,17 +54,17 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const setting_menu = [
     {
       text : 'Jenis Pengeluaran',
-      location : '/outcome_categories',
+      location : null,
       icon : <Build className={classes.root} />
     },
     {
       text : 'Vendor',
-      location : '/vendors',
+      location : null,
       icon : <RecentActors className={classes.root} />
     },
     {
       text : 'Ekspedisi',
-      location : '/expeditions',
+      location : null,
       icon : <Motorcycle className={classes.root} />
     },
   ];
@@ -79,7 +80,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const outcome_menu = [
     {
       text : 'Pengeluaran Internal',
-      location : '/outcomes',
+      location : null,
       icon : <Receipt className={classes.root} />
     },
   ];
@@ -87,12 +88,12 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const report_menu = [
     {
       text : 'Report',
-      location : '/reports',
+      location : null,
       icon : <MenuBook className={classes.root} />
     },
     {
       text : 'History',
-      location : '/histories',
+      location : null,
       icon : <FindInPage className={classes.root} />
     },
   ];
@@ -103,7 +104,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
       <Divider />
       <List>
           {main_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => history.push(`${item.location}`)}>
+            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
               <ListItemIcon >{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
@@ -112,7 +113,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
         <Divider />
         <List>
           {setting_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => history.push(`${item.location}`)}>
+            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
               <ListItemIcon >{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
@@ -121,7 +122,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
         <Divider />
         <List>
           {income_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => history.push(`${item.location}`)}>
+            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
               <ListItemIcon >{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
@@ -130,7 +131,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
         <Divider />
         <List>
           {outcome_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => history.push(`${item.location}`)}>
+            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
               <ListItemIcon >{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
@@ -139,7 +140,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
         <Divider />
         <List>
           {report_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => history.push(`${item.location}`)}>
+            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
               <ListItemIcon >{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
