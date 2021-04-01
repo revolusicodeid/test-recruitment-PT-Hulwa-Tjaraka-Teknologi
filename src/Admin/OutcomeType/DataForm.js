@@ -2,11 +2,7 @@ import React, {useState, useContext} from 'react'
 import { 
     makeStyles, 
     Button, 
-    FormControl, 
-    InputLabel, 
     TextField, 
-    MenuItem, 
-    Select,
     Paper,
     CssBaseline
 } from '@material-ui/core';
@@ -51,24 +47,10 @@ const DataForm = (view) => {
     const classes = useStyles();
     const [data_input, setDataInput] = useState({
       data : {
-          email: "",
+          code: "",
           name : "",
-          password : "",
-          role : "",
       }
     });
-
-
-    const select_items = [
-        {
-            text: 'Admin',
-            val: 'admin'
-        },
-        {
-            text: 'Approval',
-            val: 'approval'
-        },
-    ];
 
     const handleInputOnChange = (e) => {
         formatData(e,setDataInput);
@@ -76,9 +58,10 @@ const DataForm = (view) => {
     }
 
     const handleSubmit = () => {
-        const url = `${API_URL}/users`;
-        setShowProgress(true);
-        postRequestFormData(url,data_input,handlePostRequest,setShowProgress);
+        const url = `${API_URL}/outcome-types`;
+        toast.error('undermaintenance');
+        //setShowProgress(true);
+        //postRequestFormData(url,data_input,handlePostRequest,setShowProgress);
     }
     
     const handlePostRequest = (dataRequest) => {
@@ -102,11 +85,11 @@ const DataForm = (view) => {
               autoFocus
               className={classes.formControl}
               margin="normal"
-              id="email"
-              label="Email"
+              id="code"
+              label="Code"
               variant="outlined"
-              type="email"
-              name="email"
+              type="code"
+              name="code"
               onChange={handleInputOnChange}
             />
             
@@ -121,39 +104,6 @@ const DataForm = (view) => {
               name="name"
               onChange={handleInputOnChange}
             />
-            
-            <TextField
-              required
-              fullWidth
-              className={classes.formControl}
-              margin="normal"
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              name="password"
-              onChange={handleInputOnChange}
-            />
-            
-            <FormControl fullWidth variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">Role*</InputLabel>
-              
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  label="Role"
-                  name="role"
-                  onChange={handleInputOnChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {select_items.map((item, index) => (
-                      <MenuItem key={index} value={item.val}>{item.text}</MenuItem>
-                  ))}
-                </Select>
-              
-            </FormControl> 
             
             <Button
               variant="contained"

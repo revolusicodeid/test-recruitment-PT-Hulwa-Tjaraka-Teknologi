@@ -54,17 +54,17 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const setting_menu = [
     {
       text : 'Jenis Pengeluaran',
-      location : null,
+      location : '/outcome-types',
       icon : <Build className={classes.root} />
     },
     {
       text : 'Vendor',
-      location : null,
+      location : '/vendors',
       icon : <RecentActors className={classes.root} />
     },
     {
       text : 'Ekspedisi',
-      location : null,
+      location : '/expeditions',
       icon : <Motorcycle className={classes.root} />
     },
   ];
@@ -80,7 +80,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const outcome_menu = [
     {
       text : 'Pengeluaran Internal',
-      location : null,
+      location : '/outcomes',
       icon : <Receipt className={classes.root} />
     },
   ];
@@ -88,12 +88,12 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const report_menu = [
     {
       text : 'Report',
-      location : null,
+      location : '/reports',
       icon : <MenuBook className={classes.root} />
     },
     {
       text : 'History',
-      location : null,
+      location : '/histories',
       icon : <FindInPage className={classes.root} />
     },
   ];

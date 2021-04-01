@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = () => {
+const Outcome = () => {
   const classes = useStyles();
   const [view_form, setViewForm] = useState(false);
   const handleFormViewOnClick = () =>{
@@ -46,7 +46,7 @@ const User = () => {
   return (
     <div className={classes.content}>
         <div className={classes.content_header}>
-          <h1>User</h1>
+          <h1>Pengeluaran Internal</h1>
           {
               view_form ? 
               <Button
@@ -87,4 +87,4 @@ const User = () => {
   );
 }
 
-export default User;
+export default Outcome;

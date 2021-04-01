@@ -1,0 +1,31 @@
+[
+    {
+      "label": "Root",
+      "tagClassName": "special",
+      "children": [
+        {
+          "label": "Gaji",
+          "children": [
+            {
+              "label": "Gaji Karyawan"
+            },
+            {
+              "label": "Gaji Driver"
+            }
+          ]
+        },
+        {
+          "label": "Transportasi",
+          "children": [
+            {
+              "label": "Bensin"
+            },
+            {
+              "label": "Reparasi"
+            }
+          ]
+        }
+      ]
+    }
+]
+  

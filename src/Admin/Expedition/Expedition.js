@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: '2rem'
   },
   form: {
-      width: '100%',
+      width: 'auto',
       height: 600
   },
   table: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = () => {
+const Expedition = () => {
   const classes = useStyles();
   const [view_form, setViewForm] = useState(false);
   const handleFormViewOnClick = () =>{
@@ -46,7 +46,7 @@ const User = () => {
   return (
     <div className={classes.content}>
         <div className={classes.content_header}>
-          <h1>User</h1>
+          <h1>Ekspedisi</h1>
           {
               view_form ? 
               <Button
@@ -87,4 +87,4 @@ const User = () => {
   );
 }
 
-export default User;
+export default Expedition;
