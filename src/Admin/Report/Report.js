@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { 
   makeStyles, 
-  Button,
   Grid, 
   Typography 
 } from '@material-ui/core';
@@ -35,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Report = () => {
   const classes = useStyles();
-  const [view_form, setViewForm] = useState(false);
-  const handleFormViewOnClick = () =>{
-    view_form ? setViewForm(false) : setViewForm(true);
-  }
   
   return (
     <div className={classes.content}>
