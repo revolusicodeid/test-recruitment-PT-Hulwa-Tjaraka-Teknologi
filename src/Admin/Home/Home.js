@@ -25,16 +25,16 @@ const Home = () => {
   const classes = useStyles();
   const data_chart = [
       {
-        label : "Pendapatan",
+        label : "Pendapatan (55%)",
         bg_color : "#2a9d8f",
         ho_color : "#264653",
-        data_val : 13000000
+        data_val : 13000000,
       },
       {
-        label : "Pengeluaran",
+        label : "Pengeluaran (45%)",
         bg_color : "#e76f51",
         ho_color : "#264653",
-        data_val : 11000000
+        data_val : 11000000,
       }
     ];
   return (
