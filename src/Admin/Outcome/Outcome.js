@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { 
+  makeStyles, 
+  Button,
+  Grid, 
+  Typography 
+} from '@material-ui/core';
 import { AddBox, Close } from '@material-ui/icons';
 import DataView from './DataView';
 import DataForm from './DataForm';
@@ -11,25 +16,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     width: '100%',
+    marginTop: theme.spacing(4)
   },
   content_header: {
     background: '#2c2c2c',
     color: '#e9e9e9',
     padding: '0.5rem 1rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   content_body: {
     width : '100%',
   },
-  button: {
-    margin: theme.spacing(1),
-    height: '2rem'
-  },
   form: {
-      width: '100%',
-      height: 600
+      width: 'auto',
   },
   table: {
     width : '100%',
@@ -45,44 +43,49 @@ const Outcome = () => {
   
   return (
     <div className={classes.content}>
-        <div className={classes.content_header}>
-          <h1>Pengeluaran Internal</h1>
-          {
-              view_form ? 
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.button}
-                startIcon={<Close />}
-                onClick={handleFormViewOnClick}
-              >
-                Cancel
-              </Button>
-              :
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.button}
-                startIcon={<AddBox />}
-                onClick={handleFormViewOnClick}
-              >
-                Tambah
-              </Button>
-          }
-          
-        </div>
-        <div className={classes.content_body}>
-          {
-              view_form ? 
-              <div className={classes.form}>
-                  <DataForm setViewform={setViewForm} />
-              </div>
-              :
-              <div className={classes.table}>
-                  <DataView />
-              </div>
-          }
-        </div>
+      <Grid container direction={'column'} spacing={3}>
+          <Grid className={classes.content_header} container spacing={1}>
+            <Grid item xs={11} >
+              <Typography variant="subtitle1" noWrap>
+                Pengeluaran Internal
+              </Typography>
+            </Grid>
+            <Grid item xs={1} >
+              {
+                  view_form ? 
+                  <Button
+                    variant="contained"
+                    color="default"
+                    startIcon={<Close />}
+                    onClick={handleFormViewOnClick}
+                  >
+                    Cancel
+                  </Button>
+                  :
+                  <Button
+                    variant="contained"
+                    color="default"
+                    startIcon={<AddBox />}
+                    onClick={handleFormViewOnClick}
+                  >
+                    Tambah
+                  </Button>
+              }
+            </Grid>
+          </Grid>
+          <Grid item xs={12} className={classes.content_body} >
+            {
+                view_form ? 
+                <div className={classes.form}>
+                    <DataForm setViewform={setViewForm} />
+                </div>
+                :
+                <div className={classes.table}>
+                    <DataView />
+                </div>
+            }
+          </Grid>
+      </Grid> 
     </div>
   );
 }

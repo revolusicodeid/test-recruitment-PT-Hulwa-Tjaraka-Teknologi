@@ -1,10 +1,11 @@
 import React from 'react';
 import {Doughnut} from 'react-chartjs-2';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { 
+    Typography 
+} from '@material-ui/core';
 const useStyles = makeStyles({
   chart_item: {
-    width : `${100/4}%`,
     margin : '0 20px 40px 20px'
   },
 
@@ -29,7 +30,9 @@ const BenefitChart = (data) => {
     
     return (
         <div className={classes.chart_item}>
-            <h2>Benefit Report</h2>
+            <Typography variant="h5" noWrap>
+                Benefit Report
+            </Typography>
             <Doughnut data={chart_data} />
         </div>
     )
