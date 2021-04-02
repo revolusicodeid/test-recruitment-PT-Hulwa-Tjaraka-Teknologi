@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content ({window,Layout}) {
-  console.log(window);
+  
   const container = window !== undefined ? () => window().document.body : undefined;
   const classes = useStyles();
   const theme = useTheme();

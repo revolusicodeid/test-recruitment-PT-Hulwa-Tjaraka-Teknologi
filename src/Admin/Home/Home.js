@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
   Grid, 
   Typography 
 } from '@material-ui/core';
 import BenefitChart from './BenefitChart';
+import { TOKEN } from '../../Setting/env';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+ 
   const data_chart = [
       {
         label : "Pendapatan (55%)",
@@ -37,6 +39,18 @@ const Home = () => {
         data_val : 11000000,
       }
     ];
+
+  useEffect(() => {
+    const refreshPage = ()=>{
+      window.location.reload();
+    }
+    if(TOKEN){
+      console.log(TOKEN);
+    } else {
+      refreshPage();
+    }
+  }, [TOKEN]);
+ 
   return (
     <div className={classes.content}>
       <Grid container direction={'column'} spacing={3}>
