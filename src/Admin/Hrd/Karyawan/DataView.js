@@ -24,7 +24,7 @@ import {
 } from '@material-ui/core';
 import { Delete as DeleteIcon, Edit as EditIcon } from '@material-ui/icons';
 import { getRequestLess, postRequestLess } from '../../../Service/Request/FormRequest';
-import { API_URL, TOKEN } from '../../../Setting/env';
+import { API_URL, TOKEN, USER } from '../../../Setting/env';
 import { ProgressContext } from "../../../Service/Context/ProgressContext";
 import { toast } from 'react-toastify';
 import Confirm from "../../../Layout/Main/Confirm"
@@ -40,6 +40,9 @@ const headCells = [
   { id: 'jabatan', label: 'jabatan', numeric: false, disablePadding: true, width: 300 },
   { id: 'author', label: 'author', numeric: false, disablePadding: true, width: 300 },
 ];
+
+const accsess_edit = USER ? USER.accessrole.hrd.karyawan.update : false;
+const accsess_delete = USER ? USER.accessrole.hrd.karyawan.delete : false;
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -165,32 +168,46 @@ const EnhancedTableToolbar = (props) => {
       numSelected > 0 ? ( 
         numSelected === 1 ? (
           <Fragment>
-            <Tooltip title="Edit">
-            <IconButton 
-            aria-label="edit"
-            onClick={onEditData}
-            >
-              <EditIcon />
-            </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete">
-            <IconButton 
-            aria-label="delete"
-            onClick={onDeleteData}
-            >
-              <DeleteIcon />
-            </IconButton>
-            </Tooltip>
+            {
+            accsess_edit ? (
+              <Tooltip title="Edit">
+              <IconButton 
+              aria-label="edit"
+              onClick={onEditData}
+              >
+                <EditIcon />
+              </IconButton>
+              </Tooltip>
+            ) : ("") }
+            
+            { accsess_delete ? (
+              <Tooltip title="Delete">
+              <IconButton 
+              aria-label="delete"
+              onClick={onDeleteData}
+              >
+                <DeleteIcon />
+              </IconButton>
+              </Tooltip>
+            ) : ("") }
+
           </Fragment>
           ) : (
-          <Tooltip title="Delete">
-          <IconButton 
-          aria-label="delete"
-          onClick={onDeleteData}
-          >
-            <DeleteIcon />
-          </IconButton>
-          </Tooltip>)
+            <Fragment>
+              
+              { accsess_delete ? (
+                <Tooltip title="Delete">
+                <IconButton 
+                aria-label="delete"
+                onClick={onDeleteData}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                </Tooltip>
+              ) : ("") }
+
+            </Fragment>
+          )
       ) : (
         <TextareaAutosize
           rowsMax={4}

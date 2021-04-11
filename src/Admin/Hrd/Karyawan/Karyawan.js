@@ -8,6 +8,7 @@ import {
 import { AddBox, Close } from '@material-ui/icons';
 import DataView from './DataView';
 import DataForm from './DataForm';
+import { USER } from '../../../Setting/env';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,7 @@ const Karyawan = () => {
   const classes = useStyles();
   const [view_form, setViewForm] = useState(false);
   const [edit_data, setEditData] = useState([]);
+  const accsess_create = USER ? USER.accessrole.hrd.karyawan.create : false;
   
   return (
     <div className={classes.content}>
@@ -50,24 +52,27 @@ const Karyawan = () => {
             </Grid>
             <Grid item xs={1} >
               {
-                  view_form ? 
-                  <Button
-                    variant="contained"
-                    color="default"
-                    startIcon={<Close />}
-                    onClick={() => {setEditData([]);setViewForm(false)}}
-                  >
-                    Cancel
-                  </Button>
-                  :
-                  <Button
-                    variant="contained"
-                    color="default"
-                    startIcon={<AddBox />}
-                    onClick={() => {setEditData([]);setViewForm(true)}}
-                  >
-                    Tambah
-                  </Button>
+                accsess_create ?(
+                    view_form ? 
+                    <Button
+                      variant="contained"
+                      color="default"
+                      startIcon={<Close />}
+                      onClick={() => {setEditData([]);setViewForm(false)}}
+                    >
+                      Cancel
+                    </Button>
+                    :
+                    <Button
+                      variant="contained"
+                      color="default"
+                      startIcon={<AddBox />}
+                      onClick={() => {setEditData([]);setViewForm(true)}}
+                    >
+                      Tambah
+                    </Button>
+                  ) :
+                  ""
               }
             </Grid>
           </Grid>
