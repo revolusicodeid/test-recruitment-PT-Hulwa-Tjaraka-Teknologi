@@ -4,17 +4,11 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import SignUp from "../../Layout/Auth/SignUp";
 import Home from "../../Admin/Home/Home";
 import Content from "../../Layout/Main/Content";
-import Order from "../../Admin/Order/Order";
-import User from "../../Admin/User/User";
 import ProgressBar from '../../Layout/Main/ProgressBar';
 import { ProgressContext } from "../Context/ProgressContext";
 import { AuthContext } from '../../Service/Context/AuthContext';
-import Vendor from "../../Admin/Vendor/Vendor";
-import Expedition from "../../Admin/Expedition/Expedition";
-import OutcomeType from "../../Admin/OutcomeType/OutcomeType";
-import Outcome from "../../Admin/Outcome/Outcome";
-import Report from "../../Admin/Report/Report";
-import History from "../../Admin/History/History";
+import Setup from "../../Admin/Hrd/Setup/Setup";
+import Karyawan from "../../Admin/Hrd/Karyawan/Karyawan";
 
 const AppRoute = () => {
     const progress = useContext(ProgressContext);
@@ -34,42 +28,12 @@ const AppRoute = () => {
             }
             {
             checkAuth ? 
-              <Route path="/users" render={() => (<Content Layout={User}/>)} />
+              <Route path="/hrd/setup" render={() => (<Content Layout={Setup}/>)} />
               : <Redirect to="/" />
             }
             {
             checkAuth ? 
-              <Route path="/outcome-types" render={() => (<Content Layout={OutcomeType}/>)} />
-              : <Redirect to="/" />
-            }
-            {
-            checkAuth ? 
-              <Route path="/vendors" render={() => (<Content Layout={Vendor}/>)} />
-              : <Redirect to="/" />
-            }
-            {
-            checkAuth ? 
-              <Route path="/expeditions" render={() => (<Content Layout={Expedition}/>)} />
-              : <Redirect to="/" />
-            }
-            {
-            checkAuth ? 
-              <Route path="/orders" render={() => (<Content Layout={Order}/>)} />
-              : <Redirect to="/" />
-            }
-            {
-            checkAuth ? 
-              <Route path="/outcomes" render={() => (<Content Layout={Outcome}/>)} />
-              : <Redirect to="/" />
-            }
-            {
-            checkAuth ? 
-              <Route path="/reports" render={() => (<Content Layout={Report}/>)} />
-              : <Redirect to="/" />
-            }
-            {
-            checkAuth ? 
-              <Route path="/histories" render={() => (<Content Layout={History}/>)} />
+              <Route path="/hrd/karyawan" render={() => (<Content Layout={Karyawan}/>)} />
               : <Redirect to="/" />
             }
           </Switch>

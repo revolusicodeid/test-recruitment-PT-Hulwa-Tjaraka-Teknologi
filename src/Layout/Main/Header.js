@@ -1,7 +1,5 @@
 import React, { 
-  useContext,
-  useState,
-  useEffect
+  useContext
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { 
@@ -12,13 +10,10 @@ import {
   Tooltip
 } from '@material-ui/core';
 import { APP_NAV_WIDTH } from '../../Setting/env';
-import { PowerSettingsNew } from '@material-ui/icons';
-import { getRequestLess } from '../../Service/Request/FormRequest';
-import { API_URL } from '../../Setting/env';
-import { ProgressContext } from "../../Service/Context/ProgressContext";
+import { Menu as MenuIcon, PowerSettingsNew } from '@material-ui/icons';
+import { USER } from '../../Setting/env';
 import { AuthContext } from '../../Service/Context/AuthContext';
 import { useHistory } from 'react-router';
-import { Menu as MenuIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   app_bar: {
@@ -46,28 +41,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({drawerHandleToogle}) => {
-    const { setShowProgress } = useContext(ProgressContext);
-    const { token, logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
     const history = useHistory();
-    const url = `${API_URL}/get-user`;
     const classes = useStyles();
-    const [data_request, setDataRequest] = useState(null);
 
     const handleLogout = () => {
       logout();
       history.push("/");
     }
-
-    useEffect(() => {
-      const fetchData = async () => {
-        const result = await getRequestLess(url,null,true,setShowProgress,token).then(res=>{
-          return res;
-        });
-        setDataRequest(result);
-      };
-      setShowProgress(true);
-      fetchData();
-    }, [url,setShowProgress,token]);
 
     return (
       <AppBar position="fixed" className={classes.app_bar}>
@@ -83,12 +64,12 @@ const Header = ({drawerHandleToogle}) => {
           </IconButton>
           <div>
             <Typography variant="h6" noWrap>
-              Aplikasi Ekspedisi
+              Tester Recruitment
             </Typography>
           </div>
           <div>
             <Typography variant="subtitle1" noWrap>
-              { data_request ? data_request.data.name : `Username`}
+              { USER ? USER.name : `Username`}
             </Typography>
             <Tooltip title="Logout">
               <IconButton 

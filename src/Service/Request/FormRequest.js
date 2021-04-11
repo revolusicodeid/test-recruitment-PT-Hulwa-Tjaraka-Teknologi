@@ -99,9 +99,9 @@ export const getRequest = (url,handleResult,headers) => {
     });
 }
 
-export function getRequestLess(url,handleResult=null,with_token = false,setShowProgress=null, manual_token=null){
+export function getRequestLess(url,handleResult=null,with_token = false,setShowProgress=null, manual_token=null, method="get"){
     return axios({
-      method: 'get', 
+      method: method, 
       url: url,
       responseType: 'application/json',
       headers : with_token ? lessHeaders(manual_token) : noHeaders(),
@@ -116,12 +116,12 @@ export function getRequestLess(url,handleResult=null,with_token = false,setShowP
     });
 }
 
-export function postRequestLess(url,form_data,handleResult=null,setShowProgress=null,with_token = false){
-    axios({
-      method: 'post', 
+export function postRequestLess(url,form_data,handleResult=null,setShowProgress=null,with_token = false, manual_token=null, method="post"){
+  axios({
+      method: method, 
       url: url,
       responseType: 'application/json',
-      headers : with_token ? lessHeaders() : noHeaders(),
+      headers : with_token ? lessHeaders(manual_token) : noHeaders(),
       data: form_data
     })
     .then(function (response) {

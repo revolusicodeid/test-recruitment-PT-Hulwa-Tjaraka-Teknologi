@@ -1,18 +1,13 @@
 import React from 'react';
 import {
   Drawer, 
-  List, 
-  ListItem, 
-  ListItemIcon , 
-  ListItemText,
   makeStyles,
-  Divider,
   Hidden
 } from '@material-ui/core';
-import { Home as HomeIcon, Receipt, AssignmentInd, Build, RecentActors, Motorcycle, MenuBook, Payment, FindInPage } from '@material-ui/icons';
-import { APP_NAV_WIDTH } from '../../Setting/env';
-import { useHistory } from 'react-router';
-import { toast } from 'react-toastify';
+import { Home as HomeIcon, RecentActors, Build } from '@material-ui/icons';
+import { APP_NAV_WIDTH, USER } from '../../Setting/env';
+
+import MenusList from './MenusList';
 
 const useStyles = makeStyles( (theme) => ({
   root: {
@@ -26,7 +21,7 @@ const useStyles = makeStyles( (theme) => ({
   },
   drawer_paper: {
     width: APP_NAV_WIDTH,
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: "#e76f51",
     color: 'white'
   },
   // necessary for content to be below app bar
@@ -36,116 +31,152 @@ const useStyles = makeStyles( (theme) => ({
 
 const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const classes = useStyles();
-  const history = useHistory();
+  const accsess = USER.accessrole;
 
   const main_menu = [
     {
-      text : 'Home',
-      location : '/home',
-      icon : <HomeIcon className={classes.root} />
+      text : 'dashboard',
+      menu : [
+        {
+          text : 'kpi',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.dashboard.kpi
+        },
+      ]
     },
     {
-      text : 'User',
-      location : '/users',
-      icon : <AssignmentInd className={classes.root} />
-    },
-  ];
-  
-  const setting_menu = [
-    {
-      text : 'Jenis Pengeluaran',
-      location : '/outcome-types',
-      icon : <Build className={classes.root} />
-    },
-    {
-      text : 'Vendor',
-      location : '/vendors',
-      icon : <RecentActors className={classes.root} />
-    },
-    {
-      text : 'Ekspedisi',
-      location : '/expeditions',
-      icon : <Motorcycle className={classes.root} />
-    },
-  ];
-  
-  const income_menu = [
-    {
-      text : 'Pendapatan Ekspedisi',
-      location : '/orders',
-      icon : <Payment className={classes.root} />
-    },
-  ];
-  
-  const outcome_menu = [
-    {
-      text : 'Pengeluaran Internal',
-      location : '/outcomes',
-      icon : <Receipt className={classes.root} />
-    },
-  ];
-  
-  const report_menu = [
-    {
-      text : 'Report',
-      location : '/reports',
-      icon : <MenuBook className={classes.root} />
+      text : 'hrd',
+      menu : [
+        {
+          text : 'setup',
+          location : '/hrd/setup',
+          icon : <Build className={classes.root} />,
+          access : accsess.hrd.setup.list
+        },
+        {
+          text : 'karyawan',
+          location : '/hrd/karyawan',
+          icon : <RecentActors className={classes.root} />,
+          access : accsess.hrd.karyawan.list
+        },
+        {
+          text : 'payroll',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.hrd.payroll.list
+        },
+      ]
     },
     {
-      text : 'History',
-      location : '/histories',
-      icon : <FindInPage className={classes.root} />
+      text : 'crm',
+      menu : [
+        {
+          text : 'setup',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.crm.setup.list
+        },
+        {
+          text : 'request',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.crm.request.list
+        },
+        {
+          text : 'survey',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.crm.survey.list
+        },
+        {
+          text : 'instalasi',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.crm.instalasi.list
+        },
+      ]
+    },
+    {
+      text : 'procurement',
+      menu : [
+        {
+          text : 'stock',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.procurement.stock.list
+        },
+      ]
+    },
+    {
+      text : 'document',
+      menu : [
+        {
+          text : 'form',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.document.form.list
+        },
+        {
+          text : 'nodin',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.document.nodin.list
+        },
+        {
+          text : 'suratmasuk',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.document.suratmasuk.list
+        },
+        {
+          text : 'suratkeluar',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.document.suratkeluar.list
+        },
+      ]
+    },
+    {
+      text : 'master',
+      menu : [
+        {
+          text : 'paket',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.master.paket.list
+        },
+        {
+          text : 'kost',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.master.kost.list
+        },
+      ]
+    },
+    {
+      text : 'user',
+      menu : [
+        {
+          text : 'role',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.user.role.list
+        },
+        {
+          text : 'log',
+          location : '/home',
+          icon : <HomeIcon className={classes.root} />,
+          access : accsess.user.log
+        },
+      ]
     },
   ];
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider />
-      <List>
-          {main_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
-              <ListItemIcon >{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {setting_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
-              <ListItemIcon >{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {income_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
-              <ListItemIcon >{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {outcome_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
-              <ListItemIcon >{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {report_menu.map((item, index) => (
-            <ListItem button key={index} onClick={() => item.location === null ? toast.error("under maintenance") : history.push(`${item.location}`)}>
-              <ListItemIcon >{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
+      {<MenusList data={main_menu} />}
     </div>
   );
 

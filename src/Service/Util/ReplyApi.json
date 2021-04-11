@@ -1,0 +1,197 @@
+{
+    "api" : [
+{
+    "msg": "SUCCESS",
+    "nik": "superadmin",
+    "name": "Super Admin",
+    "email": "superadmin@hulwa.co.id",
+    "phone": "1234567",
+    "karyawan_id": "72f915ab-bdf5-4a28-9436-57ce6de05501",
+    "role": {
+        "id": "ec6a5f55-8fe6-4fcc-8879-6e610458c74e",
+        "name": "Super Admin"
+    },
+    "accessrole": {
+        "dashboard": {
+            "kpi": true
+        },
+        "hrd": {
+            "setup": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "karyawan": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "payroll": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            }
+        },
+        "crm": {
+            "setup": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "request": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "survey": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "instalasi": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            }
+        },
+        "procurement": {
+            "stock": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            }
+        },
+        "document": {
+            "form": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "nodin": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "suratmasuk": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "suratkeluar": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            }
+        },
+        "master": {
+            "paket": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "kost": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            }
+        },
+        "user": {
+            "role": {
+                "create": true,
+                "list": true,
+                "update": true,
+                "delete": true
+            },
+            "log": true
+        }
+    },
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluIiwiaWF0IjoxNjE4MTE1NzY5LCJleHAiOjE2MTgxMTk2Njl9.CdknfsATMsmyCZRBpK8LdDQe3ocQnOH7rHDvaBtH-EMM0YW8UX53squQtTKWvSnRoSi6acfIObNYot4IOU_EJQ"
+},
+
+
+
+{
+    "msg": "SUCCESS",
+    "count": 2,
+    "num_rows": 2,
+    "data": [
+        {
+            "karyawan_id": "72f915ab-bdf5-4a28-9436-57ce6de05501",
+            "nik": "superadmin",
+            "name": "Super Admin",
+            "phone": "1234567",
+            "email": "superadmin@hulwa.co.id",
+            "divisi": {
+                "id": "1b096038-85b0-4aeb-b5d5-c913a8121757",
+                "name": "Direksi"
+            },
+            "jabatan": {
+                "id": "60dc973e-4bbc-4e10-a7f4-99418e5b7d98",
+                "name": "Direktur"
+            },
+            "author": "Super Admin"
+        },
+        {
+            "karyawan_id": "3070ed63-3fcb-4d06-b47a-f18066098a07",
+            "nik": "superadmin2",
+            "name": "Super Admin KW",
+            "phone": "081122334455",
+            "email": "admin.kw@mynet.id",
+            "divisi": {
+                "id": "1b096038-85b0-4aeb-b5d5-c913a8121757",
+                "name": "Direksi"
+            },
+            "jabatan": {
+                "id": "60dc973e-4bbc-4e10-a7f4-99418e5b7d98",
+                "name": "Direktur"
+            },
+            "author": "Super Admin"
+        }
+    ]
+},
+
+{
+    "nik" : "superadmin2",
+    "password" : "superadmin2",
+    "name" : "Super Admin KW",
+    "email" : "admin.kw@mynet.id",
+    "phone" : "081122334455",
+    "role_id" : "ec6a5f55-8fe6-4fcc-8879-6e610458c74e",
+    "tgl_lahir" : "1900-2-1",
+    "no_ktp" : "0",
+    "no_npwp" : "0",
+    "no_rekening" : "0",
+    "status_pernikahan" : "complicated",
+    "pendidikan" : "S7",
+    "mulai_bergabung" : "2021-1-1",
+    "alamat" : "dunia maya",
+    "emergency_contact" : "Elon Musk",
+    "no_bpjs_kesehatan" : "0",
+    "no_bpjs_ketenagakerjaan" : "0",
+    "divisi_id" : "1b096038-85b0-4aeb-b5d5-c913a8121757",
+    "jabatan_id" : "60dc973e-4bbc-4e10-a7f4-99418e5b7d98",
+    "status_karyawan" : "Numpang",
+    "pas_foto" : "",
+    "file_kk" : "",
+    "file_ktp" : "",
+    "file_npwp" : "",
+    "file_cv" : "",
+    "file_psikotest" : "",
+    "author" : "72f915ab-bdf5-4a28-9436-57ce6de05501"
+}
+]
+}

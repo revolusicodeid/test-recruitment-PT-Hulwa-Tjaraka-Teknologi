@@ -34,20 +34,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = () => {
+const Karyawan = () => {
   const classes = useStyles();
   const [view_form, setViewForm] = useState(false);
-  const handleFormViewOnClick = () =>{
-    view_form ? setViewForm(false) : setViewForm(true);
-  }
+  const [edit_data, setEditData] = useState([]);
   
   return (
     <div className={classes.content}>
-      <Grid container direction={'column'} spacing={3}>
-          <Grid className={classes.content_header} container spacing={1}>
-            <Grid item xs={11} >
+      <Grid container direction={'column'}>
+          <Grid className={classes.content_header} justify="space-between" container spacing={1}>
+            <Grid item xs={2} >
               <Typography variant="subtitle1" noWrap>
-                User
+                Karyawan
               </Typography>
             </Grid>
             <Grid item xs={1} >
@@ -57,7 +55,7 @@ const User = () => {
                     variant="contained"
                     color="default"
                     startIcon={<Close />}
-                    onClick={handleFormViewOnClick}
+                    onClick={() => {setEditData([]);setViewForm(false)}}
                   >
                     Cancel
                   </Button>
@@ -66,7 +64,7 @@ const User = () => {
                     variant="contained"
                     color="default"
                     startIcon={<AddBox />}
-                    onClick={handleFormViewOnClick}
+                    onClick={() => {setEditData([]);setViewForm(true)}}
                   >
                     Tambah
                   </Button>
@@ -77,11 +75,11 @@ const User = () => {
             {
                 view_form ? 
                 <div className={classes.form}>
-                    <DataForm setViewform={setViewForm} />
+                    <DataForm setViewForm={setViewForm} editData={edit_data}/>
                 </div>
                 :
                 <div className={classes.table}>
-                    <DataView />
+                    <DataView setViewForm={setViewForm} setEditData={setEditData} />
                 </div>
             }
           </Grid>
@@ -90,4 +88,4 @@ const User = () => {
   );
 }
 
-export default User;
+export default Karyawan;

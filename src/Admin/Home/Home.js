@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect} from 'react';
 import { 
+  makeStyles,
   Grid, 
   Typography 
 } from '@material-ui/core';
 import BenefitChart from './BenefitChart';
-import { TOKEN } from '../../Setting/env';
+import { TOKEN, USER } from '../../Setting/env';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -44,12 +44,13 @@ const Home = () => {
     const refreshPage = ()=>{
       window.location.reload();
     }
-    if(TOKEN){
+    if(TOKEN && USER){
       console.log(TOKEN);
+      console.log(USER);
     } else {
       refreshPage();
     }
-  }, [TOKEN]);
+  }, [TOKEN,USER]);
  
   return (
     <div className={classes.content}>

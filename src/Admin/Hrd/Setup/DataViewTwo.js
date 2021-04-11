@@ -1,34 +1,38 @@
 import React, {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import { 
+    lighten, 
+    makeStyles,
+    Table,
+    TextareaAutosize,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+    TableSortLabel,
+    Toolbar,
+    Typography,
+    Paper,
+    Checkbox,
+    IconButton,
+    Tooltip,
+    FormControlLabel,
+    Switch
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getRequestLess } from '../../Service/Request/FormRequest';
-import { API_URL } from '../../Setting/env';
-import { ProgressContext } from "../../Service/Context/ProgressContext";
+import { getRequestLess } from '../../../Service/Request/FormRequest';
+import { API_URL } from '../../../Setting/env';
+import { ProgressContext } from "../../../Service/Context/ProgressContext";
 
 
 const headCells = [
-  { id: 'id', label: 'ID',numeric: false, disablePadding: true, width: 50 },
-  { id: 'code', label: 'Code', numeric: false, disablePadding: true, width: 150 },
-  { id: 'name', label: 'Name', numeric: false, disablePadding: true, width: 300 },
+  { id: 'jabatan_id', label: 'ID', numeric: false, disablePadding: true, width: 300 },
+  { id: 'code', label: 'Code', numeric: false, disablePadding: true, width: 50 },
+  { id: 'name', label: 'Name',numeric: false, disablePadding: true, width: 150 },
+  { id: 'author', label: 'Author', numeric: false, disablePadding: true, width: 300 },
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -201,7 +205,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const DataView = () => {
+const DataViewTwo = () => {
   const { setShowProgress } = useContext(ProgressContext);
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
@@ -209,14 +213,14 @@ const DataView = () => {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [rowsOnPage, setRowsOnPage] = useState(0);
   const [emptyRows, setEmptyRows] = useState(5);
   const [totalRows, setTotalRows] = useState(0);
   const [rows, setRows] = useState([]);
   const [searchPath, setSearchPath] = useState("");
-  const [url, setUrl] = useState(`${API_URL}/expeditions?page=${page}&rowsPerPage=${rowsPerPage}&search=${searchPath}`);
+  const [url, setUrl] = useState(`${API_URL}/hrd-service/jabatan/list/0/${rowsPerPage}`);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -255,12 +259,12 @@ const DataView = () => {
 
   const handleChangePage = (event, newPage) => {
     setRows([]);
-    setUrl(`${API_URL}/expeditions?page=${newPage+1}&rowsPerPage=${rowsPerPage}&search=${searchPath}`);
+    setUrl(`${API_URL}/hrd-service/jabatan/list/0/10`);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRows([]);
-    setUrl(`${API_URL}/expeditions?page=1&rowsPerPage=${parseInt(event.target.value, 10)}&search=${searchPath}`);
+    setUrl(`${API_URL}/hrd-service/jabatan/list/0/10`);
   };
 
   const handleChangeDense = (event) => {
@@ -268,14 +272,14 @@ const DataView = () => {
   };
   
   const handleOnSearch = (event) => {
-    const val = event.target.value;
-    const path = val.split('\n').join('-');
-    const str = "";
-    setSearchPath(path);
-    setRows([]);
-    val.localeCompare(str) === 0 ? 
-    setUrl(`${API_URL}/expeditions?page=1&rowsPerPage=${rowsPerPage}&search=${path}`) 
-    : setUrl(`${API_URL}/expeditions?page=${page}&rowsPerPage=${rowsPerPage}&search=${path}`);
+    //const val = event.target.value;
+    //const path = val.split('\n').join('-');
+    //const str = "";
+    //setSearchPath(path);
+    //setRows([]);
+    //val.localeCompare(str) === 0 ? 
+    //setUrl(`${API_URL}/hrd-service/jabatan/list?page=1&rowsPerPage=${rowsPerPage}&search=${path}`) 
+    //: setUrl(`${API_URL}/hrd-service/jabatan/list?page=${page}&rowsPerPage=${rowsPerPage}&search=${path}`);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -287,35 +291,38 @@ const DataView = () => {
         return res;
       });
       function createData(
-        id,
-        code,
         name,
+        code,
+        jabatan_id,
+        author
         ) {
         return { 
-          id,
-          code,
           name,
+          code,
+          jabatan_id,
+          author
         };
       }
       const addData = (createData) => {
         return function(item){
           const val = createData(
-            item.id,
-            item.code,
             item.name,
+            item.code,
+            item.jabatan_id,
+            item.author
           );
           return setRows(prevState => ([
-            ...prevState, val 
+            ...prevState, val
           ]));
         }
       };
       
-      await result.data.data.map(addData(createData));
-      setTotalRows(parseInt(result.data.total,10));
-      setRowsPerPage(parseInt(result.data.per_page,10));
-      setEmptyRows(parseInt(result.data.per_page,10) - result.data.data.length);
-      setPage(result.data.current_page - 1);
-      setRowsOnPage(parseInt(result.data.data.length,10));
+      await result.jabatan.map(addData(createData));
+      setTotalRows(parseInt(result.count,10));
+      setRowsPerPage(parseInt(10,10));
+      setEmptyRows(parseInt(10,10) - result.jabatan.length);
+      setPage(1);
+      setRowsOnPage(parseInt(result.jabatan.length,10));
     };
     setShowProgress(true);
     fetchData();
@@ -347,17 +354,17 @@ const DataView = () => {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  const isItemSelected = isSelected(row.jabatan_id);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
+                      onClick={(event) => handleClick(event, row.jabatan_id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={row.jabatan_id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -367,10 +374,11 @@ const DataView = () => {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.id}
+                        {row.jabatan_id}
                       </TableCell>
                       <TableCell >{row.code}</TableCell>
                       <TableCell >{row.name}</TableCell>
+                      <TableCell >{row.author}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -383,7 +391,7 @@ const DataView = () => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10,20]}
           component="div"
           count={totalRows}
           rowsPerPage={rowsPerPage}
@@ -400,4 +408,4 @@ const DataView = () => {
   );
 }
 
-export default DataView;
+export default DataViewTwo;

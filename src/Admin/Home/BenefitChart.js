@@ -1,7 +1,7 @@
 import React from 'react';
 import {Doughnut} from 'react-chartjs-2';
-import { makeStyles } from '@material-ui/core/styles';
 import { 
+    makeStyles,
     Typography 
 } from '@material-ui/core';
 const useStyles = makeStyles({

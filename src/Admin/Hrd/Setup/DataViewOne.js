@@ -1,71 +1,38 @@
 import React, {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import { 
+    lighten, 
+    makeStyles,
+    Table,
+    TextareaAutosize,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+    TableSortLabel,
+    Toolbar,
+    Typography,
+    Paper,
+    Checkbox,
+    IconButton,
+    Tooltip,
+    FormControlLabel,
+    Switch
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getRequestLess } from '../../Service/Request/FormRequest';
-import { API_URL } from '../../Setting/env';
-import { ProgressContext } from "../../Service/Context/ProgressContext";
+import { getRequestLess } from '../../../Service/Request/FormRequest';
+import { API_URL } from '../../../Setting/env';
+import { ProgressContext } from "../../../Service/Context/ProgressContext";
 
 
 const headCells = [
-  { id: 'id', label: 'ID',numeric: false, disablePadding: true, width: 50 },
-  { id: 'kode', label: 'Code', numeric: false, disablePadding: true, width: 150 },
-  { id: 'date', label: 'Date', numeric: false, disablePadding: true, width: 150 },
-  { id: 'services', label: 'Services', numeric: false, disablePadding: true, width: 150 },
-  {
-    id: 'weight',
-    label: 'Weight',
-    numeric: true, disablePadding: false,
-    width: 90 },
-  {
-    id: 'qty',
-    label: 'Qty',
-    numeric: true, disablePadding: false,
-    width: 90 },
-  { id: 'destination', label: 'Destination', numeric: false, disablePadding: true, width: 150 },
-  { id: 'shipper_cust_id', label: 'Shipper Cust Id', numeric: false, disablePadding: true, width: 150 },
-  { id: 'shipper_name', label: 'Shipper Name', numeric: false, disablePadding: true, width: 150 },
-  { id: 'shipper_phone', label: 'Shipper Phone', numeric: false, disablePadding: true, width: 150 },
-  { id: 'receiver_name', label: 'Receiver Name', numeric: false, disablePadding: true, width: 150 },
-  { id: 'receiver_phone', label: 'Receiver Phone', numeric: false, disablePadding: true, width: 150 },
-  { id: 'goods_desc', label: 'Goods desc', numeric: false, disablePadding: true, width: 150 },
-  //{ id: 'insurance', label: 'Insurance', numeric: false, disablePadding: true, width: 150 },
-  { id: 'payment_type', label: 'Payment Type', numeric: false, disablePadding: true, width: 150 },
-  { id: 'voucher_no', label: 'Voucher No', numeric: false, disablePadding: true, width: 150 },
-  {
-    id: 'voucher_amt',
-    label: 'Voucher Amt',
-    numeric: true, disablePadding: false,
-    width: 90 },
-  {
-    id: 'amount',
-    label: 'Amount',
-    numeric: true, disablePadding: false,
-  width: 90 },
-  {
-    id: 'pajak',
-    label: 'Pajak',
-    numeric: true, disablePadding: false,
-    width: 90 },
-  { id: 'user_id', label: 'User Id', numeric: false, disablePadding: true, width: 150 },
+  { id: 'divisi_id', label: 'ID', numeric: false, disablePadding: true, width: 300 },
+  { id: 'code', label: 'Code', numeric: false, disablePadding: true, width: 50 },
+  { id: 'name', label: 'Name',numeric: false, disablePadding: true, width: 150 },
+  { id: 'author', label: 'Author', numeric: false, disablePadding: true, width: 300 },
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -238,7 +205,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const DataView = () => {
+const DataViewOne = () => {
   const { setShowProgress } = useContext(ProgressContext);
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
@@ -246,14 +213,14 @@ const DataView = () => {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const [rowsOnPage, setRowsOnPage] = useState(0);
   const [emptyRows, setEmptyRows] = useState(5);
   const [totalRows, setTotalRows] = useState(0);
-  const [rowsOnPage, setRowsOnPage] = useState(0);
   const [rows, setRows] = useState([]);
   const [searchPath, setSearchPath] = useState("");
-  const [url, setUrl] = useState(`${API_URL}/orders?page=${page}&rowsPerPage=${rowsPerPage}&search=${searchPath}`);
+  const [url, setUrl] = useState(`${API_URL}/hrd-service/divisi/list/0/${rowsPerPage}`);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -270,9 +237,8 @@ const DataView = () => {
     setSelected([]);
   };
 
-  const handleClick = (event,id) => {
+  const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
-    console.log(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -293,12 +259,12 @@ const DataView = () => {
 
   const handleChangePage = (event, newPage) => {
     setRows([]);
-    setUrl(`${API_URL}/orders?page=${newPage+1}&rowsPerPage=${rowsPerPage}&search=${searchPath}`);
+    setUrl(`${API_URL}/hrd-service/divisi/list/0/10`);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRows([]);
-    setUrl(`${API_URL}/orders?page=1&rowsPerPage=${parseInt(event.target.value, 10)}&search=${searchPath}`);
+    setUrl(`${API_URL}/hrd-service/divisi/list/0/10`);
   };
 
   const handleChangeDense = (event) => {
@@ -306,14 +272,14 @@ const DataView = () => {
   };
   
   const handleOnSearch = (event) => {
-    const val = event.target.value;
-    const path = val.split('\n').join('-');
-    const str = "";
-    setSearchPath(path);
-    setRows([]);
-    val.localeCompare(str) === 0 ? 
-    setUrl(`${API_URL}/orders?page=1&rowsPerPage=${rowsPerPage}&search=${path}`) 
-    : setUrl(`${API_URL}/orders?page=${page}&rowsPerPage=${rowsPerPage}&search=${path}`);
+    //const val = event.target.value;
+    //const path = val.split('\n').join('-');
+    //const str = "";
+    //setSearchPath(path);
+    //setRows([]);
+    //val.localeCompare(str) === 0 ? 
+    //setUrl(`${API_URL}/hrd-service/divisi/list?page=1&rowsPerPage=${rowsPerPage}&search=${path}`) 
+    //: setUrl(`${API_URL}/hrd-service/divisi/list?page=${page}&rowsPerPage=${rowsPerPage}&search=${path}`);
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -324,44 +290,38 @@ const DataView = () => {
       const result = await getRequestLess(url,null,true,setShowProgress).then(res=>{
         return res;
       });
-      function createData(id,kode,date,services,weight,qty,destination,shipper_cust_id,shipper_name,shipper_phone,receiver_name,receiver_phone,goods_desc,payment_type,voucher_no,voucher_amt,amount,pajak,user_id) {
-        return { id,kode,date,services,weight,qty,destination,shipper_cust_id,shipper_name,shipper_phone,receiver_name,receiver_phone,goods_desc,payment_type,voucher_no,voucher_amt,amount,pajak,user_id };
+      function createData(
+        name,
+        code,
+        divisi_id,
+        author
+        ) {
+        return { 
+          name,
+          code,
+          divisi_id,
+          author
+        };
       }
       const addData = (createData) => {
         return function(item){
           const val = createData(
-            item.id,
+            item.name,
             item.code,
-            item.shipper_date,
-            item.service,
-            item.invoice_orders_data[0].weight,
-            item.invoice_orders_data[0].qty,
-            item.destination,
-            item.shipper,
-            item.vendors_data.name,
-            item.vendors_data.contact,
-            item.customer,
-            item.contact,
-            item.goods_data.name,
-            item.payment_types_data.name,
-            item.purcash_orders_data[0].voucher_number,
-            item.purcash_orders_data[0].voucher_amount,
-            item.invoice_orders_data[0].amount,
-            item.purcash_orders_data[0].tax,
-            item.review
+            item.divisi_id,
+            item.author
           );
           return setRows(prevState => ([
-            ...prevState, val 
+            ...prevState, val
           ]));
         }
       };
-      
-      await result.data.data.map(addData(createData));
-      setTotalRows(parseInt(result.data.total,10));
-      setRowsPerPage(parseInt(result.data.per_page,10));
-      setEmptyRows(parseInt(result.data.per_page,10) - parseInt(result.data.data.length,10));
-      setRowsOnPage(parseInt(result.data.data.length,10));
-      setPage(result.data.current_page - 1);
+      await result.divisi.map(addData(createData));
+      setTotalRows(parseInt(result.count,10));
+      setRowsPerPage(parseInt(10,10));
+      setEmptyRows(parseInt(10,10) - result.divisi.length);
+      setPage(0);
+      setRowsOnPage(parseInt(result.divisi.length,10));
     };
     setShowProgress(true);
     fetchData();
@@ -393,18 +353,17 @@ const DataView = () => {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  const isItemSelected = isSelected(row.divisi_id);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  
                   return (
                     
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event,row.id)}
+                      onClick={(event) => handleClick(event, row.divisi_id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={row.divisi_id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -414,26 +373,11 @@ const DataView = () => {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.id}
+                        {row.divisi_id}
                       </TableCell>
-                      <TableCell >{row.kode}</TableCell>
-                      <TableCell >{row.date}</TableCell>
-                      <TableCell >{row.services}</TableCell>
-                      <TableCell align="right">{row.weight}</TableCell>
-                      <TableCell align="right">{row.qty}</TableCell>
-                      <TableCell >{row.destination}</TableCell>
-                      <TableCell >{row.shipper_cust_id}</TableCell>
-                      <TableCell style={{minWidth:300}}>{row.shipper_name}</TableCell>
-                      <TableCell >{row.shipper_phone}</TableCell>
-                      <TableCell >{row.receiver_name}</TableCell>
-                      <TableCell >{row.receiver_phone}</TableCell>
-                      <TableCell >{row.goods_desc}</TableCell>
-                      <TableCell >{row.payment_type}</TableCell>
-                      <TableCell >{row.voucher_no}</TableCell>
-                      <TableCell align="right">{row.voucher_amt}</TableCell>
-                      <TableCell align="right">{row.amount}</TableCell>
-                      <TableCell align="right">{row.pajak}</TableCell>
-                      <TableCell >{row.user_id}</TableCell>
+                      <TableCell >{row.code}</TableCell>
+                      <TableCell >{row.name}</TableCell>
+                      <TableCell >{row.author}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -446,7 +390,7 @@ const DataView = () => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10,20]}
           component="div"
           count={totalRows}
           rowsPerPage={rowsPerPage}
@@ -463,4 +407,4 @@ const DataView = () => {
   );
 }
 
-export default DataView;
+export default DataViewOne;

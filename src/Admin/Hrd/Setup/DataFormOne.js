@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext} from 'react';
+import PropTypes from 'prop-types';
 import { 
     makeStyles, 
     Button, 
@@ -7,10 +8,10 @@ import {
     CssBaseline
 } from '@material-ui/core';
 import { CloudUpload } from '@material-ui/icons';
-import { API_URL } from '../../Setting/env';
-import { postRequestFormData, formatData } from '../../Service/Request/FormRequest';
+import { API_URL } from '../../../Setting/env';
+import { postRequestFormData, formatData } from '../../../Service/Request/FormRequest';
 import { toast } from 'react-toastify';
-import { ProgressContext } from "../../Service/Context/ProgressContext";
+import { ProgressContext } from "../../../Service/Context/ProgressContext";
 
 const useStyles = makeStyles((theme) => ({
   form : {
@@ -41,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  
-const DataForm = (view) => {
+function DataFormOne (view) {
     const { setShowProgress } = useContext(ProgressContext);
-    const {setViewform} = view;
+    const {setViewForm} = view;
     const classes = useStyles();
     const [data_input, setDataInput] = useState({
       data : {
@@ -58,7 +59,7 @@ const DataForm = (view) => {
     }
 
     const handleSubmit = () => {
-        const url = `${API_URL}/vendors`;
+        const url = `${API_URL}/expeditions`;
         toast.error('undermaintenance');
         //setShowProgress(true);
         //postRequestFormData(url,data_input,handlePostRequest,setShowProgress);
@@ -67,7 +68,7 @@ const DataForm = (view) => {
     const handlePostRequest = (dataRequest) => {
       const {status,message} = dataRequest;
       if(status){
-        setViewform(false);
+        setViewForm(prevState => ({ ...prevState,  form_1: false }));
         toast.success(message);
       }else{
         toast.error(message);
@@ -120,5 +121,9 @@ const DataForm = (view) => {
       </React.Fragment>
     )
   }
+DataFormOne.propTypes = {
+  editData: PropTypes.object.isRequired,
+  setViewform: PropTypes.func.isRequired
+};
  
-export default DataForm;
+export default DataFormOne;

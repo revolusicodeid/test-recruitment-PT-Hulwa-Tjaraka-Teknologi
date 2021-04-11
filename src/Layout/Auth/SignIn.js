@@ -1,17 +1,19 @@
 import React, {useContext, useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import {
+  makeStyles,
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { formatData, postRequestLess } from '../../Service/Request/FormRequest';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
@@ -54,20 +56,20 @@ const useStyles = makeStyles((theme) => ({
 
 const initFormData = {
   data : {
-      email : "",
+      nik : "",
       password : ""
   }
 };
 
 export default function SignIn() {
   const { setShowProgress } = useContext(ProgressContext);
-  const { setIsAuthenticated, setToken } = useContext(AuthContext);
+  const { setIsAuthenticated, setToken, setUser } = useContext(AuthContext);
   const classes = useStyles();
   const history = useHistory();
 
   const [formData, setFormData] = useState(initFormData);
 
-  const urlLogin = `${API_URL}/login`;
+  const urlLogin = `${API_URL}/user-service/user/login`;
   
   const handleOnChangeInput = (e) => {
     formatData(e,setFormData);
@@ -80,22 +82,24 @@ export default function SignIn() {
   }
 
   const addToken = async (resData) => {
-    const {status,data,message} = await resData;
-    if(status){
+    const data = await resData;
+    //if(status){
         await storeToken(data);
         toast.success("Welcome");
         history.push("/home");
-    }else{
+    /*}else{
         toast.error(message);
         localStorage.clear();
-    }
+    }*/
     
   }
 
   const storeToken = async (data) => {
-    localStorage.setItem("token",`${data}`);
+    localStorage.setItem("token",`${data.token}`);
+    localStorage.setItem("user",`${JSON.stringify(data)}`);
     localStorage.setItem("isAuthenticated",true);
-    setToken(`${data}`);
+    setToken(`${data.token}`);
+    setUser(data);
     setIsAuthenticated(true);
   }
 
@@ -114,12 +118,11 @@ export default function SignIn() {
             variant="outlined"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="nik"
+            label="Nik"
+            name="nik"
             autoFocus
-            value={formData.data.email}
+            value={formData.data.nik}
             onChange={handleOnChangeInput}
           />
           <TextField
