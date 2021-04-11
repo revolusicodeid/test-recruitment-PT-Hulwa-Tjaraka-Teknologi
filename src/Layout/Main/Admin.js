@@ -31,7 +31,7 @@ const useStyles = makeStyles( (theme) => ({
 
 const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
   const classes = useStyles();
-  const accsess = USER.accessrole;
+  const accsess = USER ? USER.accessrole : true;
 
   const main_menu = [
     {
@@ -41,7 +41,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'kpi',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.dashboard.kpi
+          access : accsess === true ? accsess : accsess.dashboard.kpi
         },
       ]
     },
@@ -52,19 +52,19 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'setup',
           location : '/hrd/setup',
           icon : <Build className={classes.root} />,
-          access : accsess.hrd.setup.list
+          access : accsess === true ? accsess : accsess.hrd.setup.list
         },
         {
           text : 'karyawan',
           location : '/hrd/karyawan',
           icon : <RecentActors className={classes.root} />,
-          access : accsess.hrd.karyawan.list
+          access : accsess === true ? accsess : accsess.hrd.karyawan.list
         },
         {
           text : 'payroll',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.hrd.payroll.list
+          access : accsess === true ? accsess : accsess.hrd.payroll.list
         },
       ]
     },
@@ -75,25 +75,25 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'setup',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.crm.setup.list
+          access : accsess === true ? accsess : accsess.crm.setup.list
         },
         {
           text : 'request',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.crm.request.list
+          access : accsess === true ? accsess : accsess.crm.request.list
         },
         {
           text : 'survey',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.crm.survey.list
+          access : accsess === true ? accsess : accsess.crm.survey.list
         },
         {
           text : 'instalasi',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.crm.instalasi.list
+          access : accsess === true ? accsess : accsess.crm.instalasi.list
         },
       ]
     },
@@ -104,7 +104,7 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'stock',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.procurement.stock.list
+          access : accsess === true ? accsess : accsess.procurement.stock.list
         },
       ]
     },
@@ -115,25 +115,25 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'form',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.document.form.list
+          access : accsess === true ? accsess : accsess.document.form.list
         },
         {
           text : 'nodin',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.document.nodin.list
+          access : accsess === true ? accsess : accsess.document.nodin.list
         },
         {
           text : 'suratmasuk',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.document.suratmasuk.list
+          access : accsess === true ? accsess : accsess.document.suratmasuk.list
         },
         {
           text : 'suratkeluar',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.document.suratkeluar.list
+          access : accsess === true ? accsess : accsess.document.suratkeluar.list
         },
       ]
     },
@@ -144,13 +144,13 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'paket',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.master.paket.list
+          access : accsess === true ? accsess : accsess.master.paket.list
         },
         {
           text : 'kost',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.master.kost.list
+          access : accsess === true ? accsess : accsess.master.kost.list
         },
       ]
     },
@@ -161,13 +161,13 @@ const Admin = ({drawerTheme,drawerContainer,drawerHandleToogle,mobileOpen}) => {
           text : 'role',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.user.role.list
+          access : accsess === true ? accsess : accsess.user.role.list
         },
         {
           text : 'log',
           location : '/home',
           icon : <HomeIcon className={classes.root} />,
-          access : accsess.user.log
+          access : accsess === true ? accsess : accsess.user.log
         },
       ]
     },
